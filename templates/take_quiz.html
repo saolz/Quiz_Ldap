@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take Quiz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/quiz.css') }}">
+    <style>
+        .question { display: none; }
+        .question.active { display: block; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quiz</h1>
+        <div id="timer">Time remaining: 5:00</div>
+        <form id="quizForm" method="POST" action="{{ url_for('take_quiz') }}">
+            {% for question in questions %}
+            <div class="question {% if loop.first %}active{% endif %}" data-question="{{ loop.index }}">
+                <h2>Question {{ loop.index }}</h2>
+                <p>{{ question.question }}</p>
+                <div>
+                    <input type="radio" id="q{{ question.id }}_1" name="q{{ question.id }}" value="1" required>
+                    <label for="q{{ question.id }}_1">{{ question.option1 }}</label>
+                </div>
+                <div>
+                    <input type="radio" id="q{{ question.id }}_2" name="q{{ question.id }}" value="2">
+                    <label for="q{{ question.id }}_2">{{ question.option2 }}</label>
+                </div>
+                <div>
+                    <input type="radio" id="q{{ question.id }}_3" name="q{{ question.id }}" value="3">
+                    <label for="q{{ question.id }}_3">{{ question.option3 }}</label>
+                </div>
+                <div>
+                    <input type="radio" id="q{{ question.id }}_4" name="q{{ question.id }}" value="4">
+                    <label for="q{{ question.id }}_4">{{ question.option4 }}</label>
+                </div>
+            </div>
+            {% endfor %}
+            <button type="button" id="prevBtn" style="display: none;">Previous</button>
+            <button type="button" id="nextBtn">Next</button>
+            <button type="submit" id="submitBtn" style="display: none;">Submit Quiz</button>
+        </form>
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </div>
+
+    <script> document.addEventListener('DOMContentLoaded', function() 
+    { const questions = document.querySelectorAll('.question'); 
+    const prevBtn = document.getElementById('prevBtn'); 
+    const nextBtn = document.getElementById('nextBtn'); 
+    const submitBtn = document.getElementById('submitBtn'); 
+    let currentQuestion = 0;
+    function showQuestion(index) { questions.forEach(q => q.classList.remove('active')); 
+    questions[index].classList.add('active'); prevBtn.style.display = index > 0 ? 'inline-block' : 'none'; 
+    nextBtn.style.display = index < questions.length - 1 ? 'inline-block' : 'none'; 
+    submitBtn.style.display = index === questions.length - 1 ? 'inline-block' : 'none'; } 
+    prevBtn.addEventListener('click', () => { if (currentQuestion > 0) { currentQuestion--; showQuestion(currentQuestion); } });
+    nextBtn.addEventListener('click', () => { if (currentQuestion < questions.length - 1) { currentQuestion++; showQuestion(currentQuestion); } }); 
+    timeLeft = 5 * 60; 
+    const timerElement = document.getElementById('timer'); 
+    function updateTimer() { const minutes = Math.floor(timeLeft / 60); 
+    const seconds = timeLeft % 60; 
+    timerElement.textContent = `Time remaining: ${minutes}:${seconds.toString().padStart(2, '0')}`; 
+    if (timeLeft === 0) { clearInterval(timerInterval); alert('Time\'s up! Submitting your quiz now.'); 
+    document.getElementById('quizForm').submit(); } else { timeLeft--; } } const timerInterval = setInterval(updateTimer, 1000);  
+    showQuestion(currentQuestion); }); 
+    </script>
+</body>
+</html>

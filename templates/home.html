@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background-color: #f0f0f0; }
+        h1 { color: #333; text-align: center; }
+        nav { margin-top: 20px; display: flex; justify-content: center; }
+        nav a { margin: 0 10px; padding: 10px 20px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
+        nav a:hover { background-color: #45a049; }
+        .message { color: red; text-align: center; }
+        .flash { background-color: yellow; padding: 10px; text-align: center; margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Welcome, {{ user.username }}!</h1>
+
+    {% for message in flash_messages %}
+        <div class="flash">
+            <p>{{ message }}</p>
+        </div>
+    {% endfor %}
+
+    {% if quiz_attempted %}
+        <p class="message">You have already attempted the quiz.</p>
+    {% endif %}
+
+    <nav>
+        {% if show_quiz_button %}
+            <a href="{{ url_for('take_quiz') }}">Take Quiz</a>
+        {% endif %}
+        <a href="{{ url_for('logout') }}">Logout</a>
+        {% if is_admin %}
+            <a href="{{ url_for('create_quiz') }}">Create Quiz</a>
+            <a href="{{ url_for('view_responses') }}">View Responses</a>
+        {% endif %}
+    </nav>
+</body>
+</html>
