@@ -11,26 +11,25 @@ This is a Flask-based quiz application with LDAP authentication, designed for us
 ## Setup Instructions
 
 1. Clone the repository:
-git clone <repository-url>
+git clone https://github.com/sahi1thakur/Ongc_Quiz
 cd my-ad-login-app
-Copy
+
 2. Install dependencies individually:
 pip install flask
 pip install flask-sqlalchemy
 pip install mysqlclient
 pip install ldap3
-pip install flask-migrate
-Copy
+
 3. Database Setup:
 - Log in to your MySQL server
 - Create a new database:
   ```sql
-  CREATE DATABASE quiz_app_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+  CREATE DATABASE final_quiz CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
   ```
 - The following tables will be created automatically when you run the migrations:
   - quiz
   - response
-  - user_access
+
 
 4. Configure the application:
 - Open `config.py` and update the following settings:
@@ -52,13 +51,11 @@ Copy
   ```
 
 6. Initialize the database:
-flask db init
-flask db migrate -m "Initial migration"
-flask db upgrade
-Copy
+python3 app.py
+
 7. Run the application:
 flask run
-Copy
+
 The application should now be running on `http://127.0.0.1:5000`.
 
 ## Usage
@@ -97,6 +94,6 @@ my-ad-login-app/
 ├── models.py
 └── requirements.txt
 Copy
-For any additional help or issues, please contact the project maintainer.
+For any additional help or issues, please contact the project maintainer.Sahil Thakur - 7977196414
 This README provides a step-by-step guide to set up and run your project on a new system. It includes manual database creation steps, individual dependency installation,
 and notes on the application's structure and usage. Users following this guide should be able to set up and run your quiz application successfully
