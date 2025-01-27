@@ -11,7 +11,7 @@ This is a Flask-based quiz application with LDAP authentication, designed for us
 ## Setup Instructions
 
 1. Clone the repository:
-git clone https://github.com/sahi1thakur/Ongc_Quiz
+
 cd my-ad-login-app
 
 2. Install dependencies individually:
@@ -93,7 +93,6 @@ my-ad-login-app/
 ├── ldap_utils.py
 ├── models.py
 └── requirements.txt
-Copy
-For any additional help or issues, please contact the project maintainer.Sahil Thakur - 7977196414
+
 This README provides a step-by-step guide to set up and run your project on a new system. It includes manual database creation steps, individual dependency installation,
 and notes on the application's structure and usage. Users following this guide should be able to set up and run your quiz application successfully
